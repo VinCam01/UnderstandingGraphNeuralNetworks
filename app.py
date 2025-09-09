@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import torch
+import urllib.request
 from torch_geometric.utils import to_networkx
 
 import os
