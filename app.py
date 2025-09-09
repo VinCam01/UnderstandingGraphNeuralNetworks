@@ -45,13 +45,33 @@ body, p, div, h1, h2, h3, h4, h5, h6, span {
 st.markdown(page_bg, unsafe_allow_html=True)
 
 
+# File 1: graph_data.pt
+FILE1_ID = "1bjPOKNI40uSPTWYQzmZ7KqRG-IbW7e6G"
+URL1 = f"https://drive.google.com/uc?export=download&id={FILE1_ID}"
+FILE1_NAME = "graph_data.pt"
+
+# File 2: top_link_predictions_vicini.csv
+FILE2_ID = "1bW-_zIBABLp_oDDSsOjsQfLSkAh0pjUw"
+URL2 = f"https://drive.google.com/uc?export=download&id={FILE2_ID}"
+FILE2_NAME = "top_link_predictions_vicini.csv"
+
+# Funzione helper per scaricare se non esiste
+def fetch_if_not_exists(url: str, filename: str):
+    if not os.path.exists(filename):
+        urllib.request.urlretrieve(url, filename)
+
+# Scarica i file
+fetch_if_not_exists(URL1, FILE1_NAME)
+fetch_if_not_exists(URL2, FILE2_NAME)
+
+
 # Caricare i dati
-data = torch.load("/Users/vincenzocamerlengo/Desktop/tesi/GAT_2/19_08/graph_data.pt")
+data = torch.load(FILE1_NAME, map_location=torch.device("cpu"))
 
 # Caricare le predizioni salvate
 @st.cache_data
 def load_predictions():
-    df = pd.read_csv("/Users/vincenzocamerlengo/Desktop/tesi/GAT_2/19_08/top_link_predictions_vicini.csv")
+    df = pd.read_csv(FILE2_NAME)
     df["recommended_nodes"] = df["recommended_nodes"].apply(eval)  # Converte stringhe in liste di tuple
     return df
 
