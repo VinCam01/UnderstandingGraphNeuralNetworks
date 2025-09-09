@@ -1,7 +1,7 @@
 pip>=24.0
 setuptools>=68.0
 wheel
-
+gdown
 streamlit==1.44.0
 pandas>=2.2.2
 torch==2.5.1
