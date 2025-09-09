@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import torch
+import gdown
 import urllib.request
 from torch_geometric.utils import to_networkx
 
@@ -59,9 +60,9 @@ FILE2_NAME = "top_link_predictions_vicini.csv"
 # Funzione helper per scaricare se non esiste
 def fetch_if_not_exists(url: str, filename: str):
     if not os.path.exists(filename):
-        urllib.request.urlretrieve(url, filename)
+        gdown.download(url, filename, quiet=False)
 
-# Scarica i file
+# Scarica i file (solo la prima volta)
 fetch_if_not_exists(URL1, FILE1_NAME)
 fetch_if_not_exists(URL2, FILE2_NAME)
 
